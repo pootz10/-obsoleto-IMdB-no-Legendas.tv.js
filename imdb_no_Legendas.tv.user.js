@@ -205,12 +205,12 @@ function trataTitulo () {
 }
 
 //Posiciona link imdb a direita do titulo
-GM_addStyle ( '                         			      \
-    #download {					                            \
-        position: absolute;					                \
-    }                                               \
-    #imdb {					                                \
-        position: absolute;					                \
-        right:  0px;                                \
-    }                                               \
-' );
+GM_addStyle ( `
+    #download {
+        position: absolute;
+    }
+    #imdb {
+        position: absolute;
+        right:  0px;
+    }
+`);
