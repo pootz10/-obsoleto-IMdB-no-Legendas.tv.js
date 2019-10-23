@@ -16,8 +16,8 @@
 // @history     1.1 - adiciona imdbIcone imdb a direita do titulo com link de busca para o mesmo
 // @history     1.0 - clica no titulo "azul" pra abrir busca do titulo no imdb
 // @require     https://code.jquery.com/jquery-2.1.1.min.js
-// @updateURL   https://raw.githubusercontent.com/pootz10/IMdB-no-Legendas.tv.js/master/imdb_no_Legendas.tv.user.js
-// @downloadURL https://raw.githubusercontent.com/pootz10/IMdB-no-Legendas.tv.js/master/imdb_no_Legendas.tv.user.js
+// @updateURL   https://github.com/pootz10/IMdB-no-Legendas.tv.js/raw/master/imdb_no_Legendas.tv.user.js
+// @downloadURL https://github.com/pootz10/IMdB-no-Legendas.tv.js/raw/master/imdb_no_Legendas.tv.user.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
