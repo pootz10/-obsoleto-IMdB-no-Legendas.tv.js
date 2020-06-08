@@ -3,9 +3,10 @@
 // @namespace   pootz10
 // @description Poe Link do IMdB do lado do Titulo das Legendas do legendas.tv
 // @include     http://*legendas.tv/download/*
-// @version     2.0
-// @history     2.0 - update search title and regex search for imdb.to shorten url
-// @history     1.9 - update url updated
+// @version     2.1
+// @history     2.1 - fix na busca regex, adicionado a procura por tiny.cc shorten url usada frequentemente, %'! adicionados a trataTitulo
+// @history     2.0 - update search for imdb.to shorten url
+// @history     1.9 - url updated
 // @history     1.8 - fix bug, onde sem http na url ocorreria falha
 // @history     1.7 - quando o link imdb estiver presente na descricao, adiciona a nota e quantidade de votos ao invez do icone
 // @history     1.6 - procura pelo ano pra aumentar a precisao de busca pra titulos de mesmo nome e ano diferente
@@ -16,8 +17,8 @@
 // @history     1.1 - adiciona imdbIcone imdb a direita do titulo com link de busca para o mesmo
 // @history     1.0 - clica no titulo "azul" pra abrir busca do titulo no imdb
 // @require     https://code.jquery.com/jquery-2.1.1.min.js
-// @updateURL   https://github.com/pootz10/IMdB-no-Legendas.tv.js/raw/master/imdb_no_Legendas.tv.user.js
-// @downloadURL https://github.com/pootz10/IMdB-no-Legendas.tv.js/raw/master/imdb_no_Legendas.tv.user.js
+// @updateURL   https://raw.githubusercontent.com/pootz10/IMdB-no-Legendas.tv.js/master/imdb_no_Legendas.tv.user.js
+// @downloadURL https://raw.githubusercontent.com/pootz10/IMdB-no-Legendas.tv.js/master/imdb_no_Legendas.tv.user.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
@@ -33,7 +34,8 @@ var t2 = $("div.t2 p").text();
 var download = $("button.icon_arrow").attr("onclick");
 
 //regex dos links imdb a procurar
-var procura = /(http:\/\/www\.imdb\.com\/title\/tt\d{7})|(http:\/\/imdb\.com\/title\/tt\d{7})|(www\.imdb\.com\/title\/tt\d{7})|(https:\/\/imdb\.to\/[\w\d]{7})/i;
+//var procura = /(http:\/\/www\.imdb\.com\/title\/tt\d{7})|(http:\/\/imdb\.com\/title\/tt\d{7})|(www\.imdb\.com\/title\/tt\d{7})|(https:\/\/imdb\.to\/[\w\d]{7})/i;
+var procura = /(imdb\.com\/title\/tt\d+)|(imdb\.to\/\d+\w+)|(tiny\.cc\/\w+)/i;
 
 //acha titulo e corrige possiveis caracteres q podem bugar a busca
 h3 = $("h3:first");
@@ -79,10 +81,13 @@ else {
 if ( procura.test(t2) ) { // && usuario != "creepysubs")
 
         var imdb = t2.match(procura)[0];
+        imdb = "https://" + imdb;
 
-        if (imdb.indexOf("http") == -1) {
-            imdb = "http://" + imdb;
+        /*
+        if (imdb.indexOf("https") == -1) {
+            imdb = "https://" + imdb;
         }
+        */
 
         GM_xmlhttpRequest ( {
             method:         "GET",
@@ -197,6 +202,10 @@ function pesquisaIMdB(objeto) {
 function trataTitulo () {
 
     oTitulo = buscaTitulo.toLowerCase();
+    buscaTitulo = buscaTitulo.replace(/%/g,"%25");
+    buscaTitulo = buscaTitulo.replace(/!/g,"%21");
+    buscaTitulo = buscaTitulo.replace(/'/g,"%27");
+    buscaTitulo = buscaTitulo.replace(/:/g,"%3A");
     buscaTitulo = buscaTitulo.replace(/&/g,"%26");
     buscaTitulo = buscaTitulo.replace(/\?/g,"%3F");
     buscaTitulo = buscaTitulo.replace(/=/g,"%3D");
@@ -213,4 +222,4 @@ GM_addStyle ( `
         position: absolute;
         right:  0px;
     }
-`);
+` );
