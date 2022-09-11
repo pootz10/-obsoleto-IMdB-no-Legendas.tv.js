@@ -3,7 +3,8 @@
 // @namespace   pootz10
 // @description Poe Link do IMdB do lado do Titulo das Legendas do legendas.tv
 // @include     http://*legendas.tv/download/*
-// @version     2.1
+// @version     2.2
+// @history     2.2 - fix nota e numero de votos = rate & count
 // @history     2.1 - fix na busca regex, adicionado a procura por tiny.cc shorten url usada frequentemente, %'! adicionados a trataTitulo
 // @history     2.0 - update search for imdb.to shorten url
 // @history     1.9 - url updated
@@ -25,8 +26,8 @@
 
 
 //icones
-imdbIcone = "data:image/jpeg;base64,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";
-downIcone = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAWCAIAAADLpcx/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH8SURBVFhH7Vg7bsMwDO0JepLexWfoFbzmHjpEJ4/x2sGDd2/ZDHd3p7axw/KjD61ICVCkQ2ITD4lMUdTjEyMDeQKAE8CEX9M3fqzWSIif6YhaAMz0sVZ7gvfnv+Hl9e2RsAlhsQlhsQlhsQlhsQlhkRAiihBEMYgo4N5xKyGa2r6PxUazc1O77rBw7s3AT21TVCOP2B/C4FDt7VrT0/PQ17Jk6ArxC+LM2u89eWJL3LAjmtoTpQJ8eW7vMEZyfcmRZRvKLqrezUJteAk5O45UyQXpzARcYqoxqJkkZqcCFkJEc+e4GLzgihXKmStCSNE+hvqxBrtqb6qGwxocmMHSzQmRy0x52q4IaREJYjLWiDsimta4FrnYj9q+bfSBeyeNHdHCdLXUvOuM7QIUApfYrskJkc0clvuTTxCTscb//DQc0WhXfAznRvUzaWxX7B3TuLVSCbcx9VS2I9KZ5Vphc7+vBDEZaySEQERB0awgilnsd+WO8DFyU9CloMg5IaRaH+OT77oaAzKZy0pxcD2SICaPCmkhED4i8nv4AAYVo0xtRizPnLLEHak7dnZyqL8syxaFcC8aa7p+7ZEwO0t3Adow+pcRW8QhICsEAqcjj4bO8gC4JMRlRInuHZsQFvQPFcAHwHycv3i8UmMhps/5BDP/cblak45YvQH8Akif3tF8n0IyAAAAAElFTkSuQmCC";
+const imdbIcone = "data:image/jpeg;base64,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";
+const downIcone = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAWCAIAAADLpcx/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH8SURBVFhH7Vg7bsMwDO0JepLexWfoFbzmHjpEJ4/x2sGDd2/ZDHd3p7axw/KjD61ICVCkQ2ITD4lMUdTjEyMDeQKAE8CEX9M3fqzWSIif6YhaAMz0sVZ7gvfnv+Hl9e2RsAlhsQlhsQlhsQlhsQlhkRAiihBEMYgo4N5xKyGa2r6PxUazc1O77rBw7s3AT21TVCOP2B/C4FDt7VrT0/PQ17Jk6ArxC+LM2u89eWJL3LAjmtoTpQJ8eW7vMEZyfcmRZRvKLqrezUJteAk5O45UyQXpzARcYqoxqJkkZqcCFkJEc+e4GLzgihXKmStCSNE+hvqxBrtqb6qGwxocmMHSzQmRy0x52q4IaREJYjLWiDsimta4FrnYj9q+bfSBeyeNHdHCdLXUvOuM7QIUApfYrskJkc0clvuTTxCTscb//DQc0WhXfAznRvUzaWxX7B3TuLVSCbcx9VS2I9KZ5Vphc7+vBDEZaySEQERB0awgilnsd+WO8DFyU9CloMg5IaRaH+OT77oaAzKZy0pxcD2SICaPCmkhED4i8nv4AAYVo0xtRizPnLLEHak7dnZyqL8syxaFcC8aa7p+7ZEwO0t3Adow+pcRW8QhICsEAqcjj4bO8gC4JMRlRInuHZsQFvQPFcAHwHycv3i8UmMhps/5BDP/cblak45YvQH8Akif3tF8n0IyAAAAAElFTkSuQmCC";
 
 //pega usuario, descricao, download link
 var usuario = $("span.nume").text();
@@ -38,9 +39,9 @@ var download = $("button.icon_arrow").attr("onclick");
 var procura = /(imdb\.com\/title\/tt\d+)|(imdb\.to\/\d+\w+)|(tiny\.cc\/\w+)/i;
 
 //acha titulo e corrige possiveis caracteres q podem bugar a busca
-h3 = $("h3:first");
+const h3 = $("h3:first");
 
-buscaTitulo = h3.text();
+var buscaTitulo = h3.text();
 
 //se tem barra / no titulo
 if (buscaTitulo.indexOf("/") != -1) {
@@ -99,7 +100,7 @@ if ( procura.test(t2) ) { // && usuario != "creepysubs")
 //inicia busca do titulo da legenda no imdb
 else {
 
-        site = "http://www.imdb.com/find?q=" + buscaTitulo + "&s=tt&exact=false";
+        var site = "http://www.imdb.com/find?q=" + buscaTitulo + "&s=tt&exact=false";
 
         GM_xmlhttpRequest ( {
                 method:         "GET",
@@ -135,8 +136,12 @@ function insereRate(imdb, rates) {
 function imdbRate(object) {
 
     var resp = $(object.responseText);
-    var rate = resp.find('span[itemprop="ratingValue"]');
-    var count = resp.find('span[itemprop="ratingCount"]');
+    //var rate = resp.find('span[itemprop="ratingValue"]');
+    var rate = resp.find('div[data-testid="hero-rating-bar__aggregate-rating__score"] > span:first');
+    //var count = resp.find('span[itemprop="ratingCount"]');
+    var count = resp.find('div[data-testid="hero-rating-bar__aggregate-rating__score"] ~ div:eq(1)');
+    console.log(count);
+    console.log(count[0]);
     var rates = rate[0].textContent + " (" + count[0].textContent + ")";
     insereRate(imdb, rates);
 
@@ -153,7 +158,7 @@ function pesquisaIMdB(objeto) {
 
     var ano = /20[0-3][0-9]|19[0-9][0-9]/;
     if (ano.test(h1)){
-        pegaAno = h1.match(ano)[0];
+        var pegaAno = h1.match(ano)[0];
     } else {
         pegaAno = null;
     }
@@ -180,7 +185,7 @@ function pesquisaIMdB(objeto) {
             if (achaTitulo.indexOf( oTitulo ) != -1) {
 
                 achou = true;
-                buscaLink = iLink.slice( iLink, iLink.indexOf("/?") );
+                const buscaLink = iLink.slice( iLink, iLink.indexOf("/?") );
                 imdb = "http://www.imdb.com" + buscaLink;
                 insere(imdb);
                 break;
@@ -201,7 +206,7 @@ function pesquisaIMdB(objeto) {
 
 function trataTitulo () {
 
-    oTitulo = buscaTitulo.toLowerCase();
+    buscaTitulo = buscaTitulo.toLowerCase();
     buscaTitulo = buscaTitulo.replace(/%/g,"%25");
     buscaTitulo = buscaTitulo.replace(/!/g,"%21");
     buscaTitulo = buscaTitulo.replace(/'/g,"%27");
